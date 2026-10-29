@@ -1,3 +1,4 @@
+
 import { useEffect } from 'react';
 import { useAuth } from './components/AuthContext';
 import axios from 'axios';
@@ -5,7 +6,7 @@ import Login from './components/Login';
 import Protected from './components/Protected';
 import './App.css';
 
-let hasFetched = false; // Prevents unnecessary duplicate requests.
+let hasFetched = false;
 
 function App() {
   const { user, setUser } = useAuth();
@@ -15,7 +16,10 @@ function App() {
     hasFetched = true;
 
     try {
-      const response = await axios.get('http://localhost:3001/profile', { withCredentials: true });
+      const response = await axios.get(
+        'http://localhost:3001/profile',
+        { withCredentials: true }
+      );
 
       if (response.data && response.data.email) {
         setUser(response.data);
@@ -32,7 +36,19 @@ function App() {
     fetchProfile();
   }, [setUser]);
 
-  return user ? <Protected /> : <Login />;
+  return (
+    <div className="app-container">
+      <div className="app-content">
+        {user ? <Protected /> : <Login />}
+      </div>
+
+      <footer className="site-footer">
+        <p>Developed by Muhammad Raima, Nsajja Comfort Shalom</p>
+        <p>S25D14/021, S25D14/017</p>
+        <p>© 2026 All rights reserved.</p>
+      </footer>
+    </div>
+  );
 }
 
 export default App;
