@@ -15,11 +15,10 @@ function App() {
     if (hasFetched) return;
     hasFetched = true;
 
-    try {
-      const response = await axios.get(
-        'http://localhost:3001/profile',
-        { withCredentials: true }
-      );
+   try {
+  const response = await axios.get('/api/profile', {
+    withCredentials: true
+  });
 
       if (response.data && response.data.email) {
         setUser(response.data);
